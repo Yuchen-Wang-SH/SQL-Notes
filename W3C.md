@@ -110,6 +110,34 @@ LIMIT number;
 
 https://www.w3schools.com/sql/sql_alias.asp
 
+### JOIN
+
+```sql
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+SELECT Orders.OrderID, Customers.CustomerName, Shippers.ShipperName
+FROM ((Orders
+INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID)
+INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID);
+```
+
+- (INNER) JOIN: Returns records that have matching values in both tables
+- LEFT (OUTER) JOIN: Return all records from the left table, and the matched records from the right table
+- RIGHT (OUTER) JOIN: Return all records from the right table, and the matched records from the left table
+- FULL (OUTER) JOIN: Return all records when there is a match in either left or right table
+
+#### Self JOIN
+
+```sql
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City
+ORDER BY A.City;
+```
+
 ## INSERT INTO
 
 ```sql
