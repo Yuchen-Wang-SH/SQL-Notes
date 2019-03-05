@@ -171,6 +171,73 @@ GROUP BY LastName
 HAVING COUNT(Orders.OrderID) > 25;
 ```
 
+### EXISTS
+
+https://www.w3schools.com/sql/sql_exists.asp
+
+```sql
+-- The following SQL statement returns TRUE and lists the suppliers with a product price less than 20
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE SupplierId = Suppliers.supplierId AND Price < 20);
+```
+
+### ANY / ALL
+
+https://www.w3schools.com/sql/sql_any_all.asp
+
+```sql
+SELECT ProductName
+FROM Products
+WHERE ProductID = ANY (SELECT ProductID FROM OrderDetails WHERE Quantity = 10);
+```
+
+### SELECT INTO
+
+The SELECT INTO statement copies data from one table into a new table.
+
+The new table will be created with the column-names and types as defined in the old table. You can create new column names using the AS clause.
+
+```sql
+SELECT * INTO CustomersBackup2017 IN 'Backup.mdb'
+FROM Customers;
+```
+
+### CASE
+
+```sql
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    WHEN conditionN THEN resultN
+    ELSE result
+END;
+
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN "The quantity is greater than 30"
+    WHEN Quantity = 30 THEN "The quantity is 30"
+    ELSE "The quantity is under 30"
+END AS QuantityText
+FROM OrderDetails;
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END);
+```
+
+### Null Functions
+
+```sql
+--MySQL
+SELECT ProductName, UnitPrice * (UnitsInStock + IFNULL(UnitsOnOrder, 0))
+FROM Products
+```
+
 ## INSERT INTO
 
 ```sql
@@ -183,6 +250,23 @@ Or
 ```sql
 INSERT INTO table_name
 VALUES (value1, value2, value3, ...);
+```
+
+### INSERT INTO SELECT
+
+The INSERT INTO SELECT statement copies data from one table and inserts it into another table.
+
+- INSERT INTO SELECT requires that data types in source and target tables match
+- The existing records in the target table are unaffected
+
+```sql
+INSERT INTO table2
+SELECT * FROM table1
+WHERE condition;
+
+INSERT INTO Customers (CustomerName, City, Country)
+SELECT SupplierName, City, Country FROM Suppliers
+WHERE Country='Germany';
 ```
 
 ## UPDATE
