@@ -282,3 +282,41 @@ WHERE condition;
 ```sql
 DELETE FROM table_name WHERE condition;
 ```
+
+## CREATE/DROP
+
+```sql
+CREATE DATABASE databasename;
+DROP DATABASE databasename;
+
+CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    column3 datatype constraint,
+    ....
+);
+DROP TABLE table_name;
+```
+
+### Constraints
+
+- NOT NULL - Ensures that a column cannot have a NULL value
+- UNIQUE - Ensures that all values in a column are different
+- PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+- FOREIGN KEY - Uniquely identifies a row/record in another table
+- CHECK - Ensures that all values in a column satisfies a specific condition
+- DEFAULT - Sets a default value for a column when no value is specified
+- INDEX - Used to create and retrieve data from the database very quickly
+
+## ALTER
+
+```sql
+ALTER TABLE table_name
+ADD column_name datatype;
+
+ALTER TABLE table_name
+DROP COLUMN column_name;
+
+ALTER TABLE table_name
+MODIFY COLUMN column_name datatype;
+```
